@@ -1,0 +1,27 @@
+{
+    "name": "zapmeteam/whmcs",
+    "description": "The ZapMe WHMCS Module",
+    "type": "library",
+    "license": "MIT",
+    "require": {
+        "zapmeteam/api": "^1.0"
+    },
+    "require-dev": {
+        "symfony/var-dumper": "5.4.x-dev"
+    },
+    "autoload": {
+        "files": [
+            "helper.php"
+        ],
+        "psr-4": {
+            "ZapMeTeam\\Whmcs\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "ZapMe",
+            "email": "dev@zapme.com.br"
+        }
+    ],
+    "minimum-stability": "dev"
+}
