@@ -515,7 +515,6 @@ function zapme_output($vars)
                         </div>
                         <div class="modal-body">
                             <form action="addonmodules.php?module=zapme&internalconfig=true&action=logs" method="post">
-                                <input type="hidden" name="current_logsystem" value="<?= $config->logsystem ?>">
                                 <p class="justify">Este procedimento irá remover todos os registros de logs do módulo existentes em seu banco de dados. Para prosseguir confirme o procedimento abaixo:</p>
                                 <div class="form-group">
                                     <div class="form-check">
