@@ -110,10 +110,11 @@ class ZapMeModule
         Capsule::table('mod_zapme')->insert([
             'api'                  => $post->get('api'),
             'secret'               => $post->get('secret'),
-            'status'               => $post->get('status'),
-            'logsystem'            => $post->get('logsystem'),
-            'clientconsentfieldid' => $post->get('clientconsentfieldid'),
-            'clientphonefieldid'   => $post->get('clientphonefieldid'),
+            'status'               => (int) $post->get('status'),
+            'logsystem'            => (int) $post->get('logsystem'),
+            'logautoremove'        => (int) $post->get('logautoremove'),
+            'clientconsentfieldid' => (int) $post->get('clientconsentfieldid'),
+            'clientphonefieldid'   => (int) $post->get('clientphonefieldid'),
             'service'              => $service,
             'created_at'           => $this->now,
             'updated_at'           => $this->now
@@ -137,7 +138,7 @@ class ZapMeModule
 
         Capsule::table('mod_zapme_templates')->where('id', $post->get('messageid'))->update([
             'message'    => $post->get('message'),
-            'status'     => $post->get('status'),
+            'status'     => (int) $post->get('status'),
             'updated_at' => $this->now
         ]);
 

@@ -17,9 +17,9 @@ function zapme_config(): array
 {
     return [
         'name'        => 'ZapMe',
-        'description' => 'Módulo WHMCS para o sistema da ZapMe.',
+        'description' => 'Módulo da ZapMe para o sistema WHMCS.',
         'version'     => '2.0',
-        'language'    => 'english',
+        'language'    => 'portuguese-br',
         'author'      => 'ZapMe'
     ];
 }
@@ -47,8 +47,9 @@ function zapme_activate(): array
             $table->increments('id');
             $table->longText('api');
             $table->longText('secret');
-            $table->enum('status', ['active', 'disable']);
-            $table->enum('logsystem', ['active', 'disable']);
+            $table->boolean('status')->default(0);
+            $table->boolean('logsystem')->default(1);
+            $table->boolean('logautoremove')->default(0);
             $table->integer('clientconsentfieldid')->default(0);
             $table->integer('clientphonefieldid')->default(0);
             $table->text('service')->nullable();
@@ -62,7 +63,7 @@ function zapme_activate(): array
             $table->binary('message');
             $table->boolean('allowconfiguration');
             $table->text('configurations')->nullable();
-            $table->enum('status', ['active', 'disable']);
+            $table->boolean('status')->default(1);
             $table->text('created_at');
             $table->text('updated_at');
         });
@@ -70,9 +71,9 @@ function zapme_activate(): array
         $schema->create('mod_zapme_logs', function ($table) {
             $table->increments('id');
             $table->text('code');
-            $table->binary('message');
-            $table->integer('clientid');
             $table->integer('messageid');
+            $table->integer('clientid');
+            $table->binary('message');
             $table->text('created_at');
             $table->text('updated_at');
         });
@@ -160,7 +161,7 @@ function zapme_activate(): array
                     'code'               => $key,
                     'message'            => $value['text'],
                     'allowconfiguration' => $value['configuration'],
-                    'status'             => 'active',
+                    'status'             => 1,
                     'created_at'         => $now,
                     'updated_at'         => $now
                 ]);
@@ -239,7 +240,7 @@ function zapme_output($vars)
     <?php if (!isset($config->id)) : ?>
         <div class="alert alert-info text-center"><i class="fas fa-exclamation-circle" aria-hidden="true"></i> <b>O módulo não encontra-se configurado para uso!</b> Certifique-se de configurar o módulo para que o mesmo funcione corretamente.</div>
     <?php endif; ?>
-    <?php if (isset($config->id) && $config->status === 'disable') : ?>
+    <?php if (isset($config->id) && $config->status == false) : ?>
         <div class="alert alert-danger text-center"><i class="fas fa-exclamation-circle" aria-hidden="true"></i> <b>ATENÇÃO!</b> O módulo encontra-se configurado, mas <b>o status está "Desativado".</b> Nenhuma mensagem será enviada até que o status esteja <b>"Ativo".</b></div>
     <?php endif; ?>
     <?php if ($version > $vars['version']) : ?>
@@ -309,8 +310,8 @@ function zapme_output($vars)
                                 <div class="form-group">
                                     <label for="inputConfirmPassword">Status</label>
                                     <select class="form-control" name="status">
-                                        <option value="active" <?= isset($config->status) && $config->status === 'active' ? 'selected' : '' ?>>Ativado</option>
-                                        <option value="disable" <?= isset($config->status) && $config->status === 'disable' ? 'selected' : '' ?>>Desativado</option>
+                                        <option value="1" <?= isset($config->status) && $config->status == true ? 'selected' : '' ?>>Ativado</option>
+                                        <option value="0" <?= isset($config->status) && $config->status == false ? 'selected' : '' ?>>Desativado</option>
                                     </select>
                                 </div>
                             </div>
@@ -330,9 +331,19 @@ function zapme_output($vars)
                                 <div class="form-group">
                                     <label for="inputConfirmPassword">Registros de Logs</label>
                                     <select class="form-control" name="logsystem">
-                                        <option value="active" <?= isset($config->logsystem) && $config->logsystem === 'active' ? 'selected' : '' ?>>Sim</option>
-                                        <option value="disable" <?= isset($config->logsystem) && $config->logsystem === 'disable' ? 'selected' : '' ?>>Não</option>
+                                        <option value="1" <?= isset($config->logsystem) && $config->logsystem == true ? 'selected' : '' ?>>Sim</option>
+                                        <option value="0" <?= isset($config->logsystem) && $config->logsystem == false ? 'selected' : '' ?>>Não</option>
                                     </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="inputConfirmPassword">Auto. Remoção dos Registros de Logs</label>
+                                    <select class="form-control" name="logautoremove">
+                                        <option value="1" <?= isset($config->logautoremove) && $config->logautoremove == true ? 'selected' : '' ?>>Sim</option>
+                                        <option value="0" <?= isset($config->logautoremove) && $config->logautoremove == false ? 'selected' : '' ?>>Não</option>
+                                    </select>
+                                    Entenda: <i class="fas fa-question-circle text-danger" aria-hidden="true" data-toggle="tooltip" data-placement="top" data-html="true" title="Apaga os registros de logs do módulo todo dia primeiro de cada mês através das ações de hooks do WHMCS."></i>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -374,7 +385,7 @@ function zapme_output($vars)
                         $templateConfiguration = templatesConfigurations($template->code); ?>
                         <div class="col-sm-12 col-md-2">
                             <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#editmodal-<?= $template->id ?>" style="float: right !important; font-size: 10px">EDITAR</button>
-                            <div class="app" style="background-color: #<?= $template->status === 'disable' ? 'fdeeee;"' : 'f1fff0;' ?>">
+                            <div class="app" style="background-color: #<?= $template->status == false ? 'fdeeee;"' : 'f1fff0;' ?>">
                                 <div class="logo-container">
                                     <h1><b>(#<?= $template->id ?>)</b> <?= $templateConfiguration['name'] ?></h1>
                                 </div>
@@ -397,7 +408,7 @@ function zapme_output($vars)
                                         <div class="modal-body">
                                             <div class="form-group">
                                                 <label>Mensagem</label>
-                                                <textarea class="form-control" name="message" rows="6" style="resize: none;" required><?= $template->message ?></textarea>
+                                                <textarea class="form-control" name="message" rows="8" style="resize: none;" required><?= $template->message ?></textarea>
                                             </div>
                                             <hr>
                                             <p>Variáveis Disponíveis</p>
@@ -412,8 +423,8 @@ function zapme_output($vars)
                                             <div class="form-group">
                                                 <label>Status</label>
                                                 <select class="form-control" name="status">
-                                                    <option value="active" <?= $template->status === 'active' ? 'selected' : '' ?>>Ativado</option>
-                                                    <option value="disable" <?= $template->status === 'disable' ? 'selected' : '' ?>>Desativado</option>
+                                                    <option value="1" <?= $template->status == true ? 'selected' : '' ?>>Ativado</option>
+                                                    <option value="0" <?= $template->status == false ? 'selected' : '' ?>>Desativado</option>
                                                 </select>
                                                 <small class="text-danger"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Se desativado, esta mensagem não será enviada</small>
                                             </div>
@@ -485,7 +496,7 @@ function zapme_output($vars)
                         $client = Client::find($log->clientid); ?>
                         <tr>
                             <th><?= $log->id ?></th>
-                            <th><a href="clientssummary.php?userid=<?= (int)$log->clientid ?>" target=_blank><?= $client->firstname . ' ' . $client->lastname . ' (Id: ' . $log->clientid . ')' ?></a></th>
+                            <th><a href="clientssummary.php?userid=<?= $client->id ?>" target=_blank><?= $client->firstname . ' ' . $client->lastname . ' (#' . $log->clientid . ')' ?></a></th>
                             <th><?= $log->message ?></th>
                             <th><?= date('d/m/Y H:i:s', strtotime($log->created_at)) ?></th>
                             <th> <a href="addonmodules.php?module=zapme&tab=logs&externalaction=consultmessage&messageid=<?= $log->messageid ?>" class="btn btn-info btn-sm"> <i class="fa fa-eye" aria-hidden="true"></i> </a> </th>
@@ -532,7 +543,8 @@ function zapme_output($vars)
             $("#tablelog").DataTable({
                 "order": [
                     [0, "desc"]
-                ]
+                ],
+                responsive: true
             });
         });
     </script>

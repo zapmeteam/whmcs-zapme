@@ -74,7 +74,7 @@ add_hook('ClientChangePassword', 1, function ($vars) use ($zapMeHooks) {
 });
 
 add_hook('AdminInvoicesControlsOutput', 1, function ($vars) use ($zapMeModule) {
-	if (isset($zapMeModule->id) && $zapMeModule->status === 'active') {
+	if (isset($zapMeModule->id) && $zapMeModule->status == true) {
 		$invoice = Capsule::table('tblinvoices')->where('id', $vars['invoiceid'])->first();
 		if ($invoice->status === 'Unpaid') {
 			return '<br /><br /><a href="addonmodules.php?module=zapme&externalaction=invoicereminder&invoiceid=' . $vars['invoiceid'] . '" target="_blank" class="btn btn-warning">[ZapMe] Fatura em Aberto</a>';
@@ -83,7 +83,7 @@ add_hook('AdminInvoicesControlsOutput', 1, function ($vars) use ($zapMeModule) {
 });
 
 add_hook('AdminClientServicesTabFields', 1, function ($vars) use ($zapMeModule) {
-	if (isset($zapMeModule->id) && $zapMeModule->status === 'active') {
+	if (isset($zapMeModule->id) && $zapMeModule->status == true) {
 		$service = Service::find($vars['id']);
 		if ($service->domainStatus === 'Active') {
 			$div = '';
@@ -98,7 +98,7 @@ add_hook('AdminClientServicesTabFields', 1, function ($vars) use ($zapMeModule) 
 });
 
 add_hook('AdminAreaClientSummaryPage', 1, function ($vars) use ($zapMeModule) {
-	if (isset($zapMeModule->id) && $zapMeModule->status === 'active') {
+	if (isset($zapMeModule->id) && $zapMeModule->status == true) {
 		$html = '';
 		$html .= '<a href="#" data-toggle="modal" data-target="#zapmemessage" target="_blank" class="btn btn-warning">[ZapMe] Envio Manual de Mensagem</a>';
 		$html .=
@@ -142,11 +142,9 @@ add_hook('AdminAreaClientSummaryPage', 1, function ($vars) use ($zapMeModule) {
 });
 
 add_hook('EmailPreSend', 1, function ($vars) use ($zapMeHooks) {
-
 	$template = $vars['messagename'];
 
 	if (mb_strpos($template, 'Invoice Overdue Notice') !== false) {
-
 		$type = explode(' ', $template);
 		$hook = $type[0];
 
@@ -154,4 +152,8 @@ add_hook('EmailPreSend', 1, function ($vars) use ($zapMeHooks) {
 			$zapMeHooks->prepare('Invoice' . $hook . 'OverDueAlert')->dispatch($vars);
 		}
 	}
+});
+
+add_hook('DailyCronJob', 1, function ($vars) use ($zapMeHooks) {
+	$zapMeHooks->prepare('DailyCronJob')->dispatch($vars);
 });
