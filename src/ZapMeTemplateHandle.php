@@ -35,7 +35,7 @@ class ZapMeTemplateHandle
      */
     public function templateStatus(): bool
     {
-        if ($this->template->status === 'disable') {
+        if ($this->template->status === false) {
             logActivity('[ZapMe][' . $this->hook . '] Envio de Mensagem Abortado: Template Desativado');
             return false;
         }
@@ -441,7 +441,7 @@ class ZapMeTemplateHandle
 
         $message = str_replace('%invoiceid%', $invoice->id, $message);
         $message = str_replace('%duedate%', date('d/m/Y', strtotime($invoice->duedate)), $message);
-        $message = str_replace('%value%', $invoice->total, $message);
+        $message = str_replace('%value%', number_format($invoice->total, 2, ',', '.'), $message);
 
         $this->template->message = $message;
 
@@ -536,7 +536,6 @@ class ZapMeTemplateHandle
             $this->template->message = str_replace('%paghiper_barcode%', $paghiper->digitable_line, $this->template->message);
 
             if (mb_strpos($this->template->message, '%paghiper_boleto%') !== false) {
-
                 $pdf = modulePagHiperExtractPdf($paghiper->url_slip_pdf);
                 if ($pdf !== null) {
                     $document = ['document' => $pdf, 'filetype' => 'pdf'];

@@ -44,7 +44,7 @@ class ZapMeHooks
 
         $this->hook = $hook;
 
-        if (isset($this->module->api) && isset($this->module->secret)) {
+        if (isset($this->module->api) && isset($this->module->secret) && $this->hook !== 'DailyCronJob') {
             $this->ZapMeApi = (new ZapMeApi)
                 ->setApi($this->module->api)
                 ->setSecret($this->module->secret);
@@ -62,14 +62,16 @@ class ZapMeHooks
      */
     public function dispatch($vars)
     {
-        if (!isset($this->module->id)) {
-            logActivity('[ZapMe][' . $this->hook . '] Envio de Mensagem Abortado: Módulo não configurado');
-            return;
-        }
+        if ($this->hook !== 'DailyCronJob') {
+            if (!isset($this->module->id)) {
+                logActivity('[ZapMe][' . $this->hook . '] Envio de Mensagem Abortado: Módulo não configurado');
+                return;
+            }
 
-        if ($this->module->status !== 'active') {
-            logActivity('[ZapMe][' . $this->hook . '] Envio de Mensagem Abortado: Módulo desativado');
-            return;
+            if ($this->module->status == false) {
+                logActivity('[ZapMe][' . $this->hook . '] Envio de Mensagem Abortado: Módulo desativado');
+                return;
+            }
         }
 
         $hook = $this->hook;
@@ -738,6 +740,21 @@ class ZapMeHooks
         $phone   = clientPhoneNumber($client, $this->module->clientphonefieldid);
 
         $this->endOfDispatch($message, $phone, $client->id);
+    }
+
+    public function DailyCronJob($vars)
+    {
+        if ($this->module->logsystem == false) {
+            return;
+        }
+
+        $date = (int) date('d');
+
+        if ($date == 1) {
+            logActivity('[ZapMe][' . $this->hook . '] Rotina de Limpeza de Registros de Logs');
+            Capsule::table('mod_zapme_logs')->truncate();
+            return true;
+        }
     }
 
     /**

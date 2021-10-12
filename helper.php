@@ -187,7 +187,7 @@ if (!function_exists('templatesConfigurations')) {
         $types = [
             'invoicecreated' => [
                 'name'        => 'Fatura Criada',
-                'information' => 'Modelo de mensagem enviada quando uma fatura é criada automaticamente pelo WHMCS',
+                'information' => 'Modelo de mensagem enviada quando uma fatura é criada pelo WHMCS',
                 'paghiper'    => 'Para anexar o boleto bancário do PagHiper neste template escreva: %paghiper_boleto% em qualquer parte da mensagem',
                 'rules'       => [
                     0 => [
@@ -233,7 +233,7 @@ if (!function_exists('templatesConfigurations')) {
             ],
             'invoicepaymentreminder' => [
                 'name'        => 'Lembrete de Fatura',
-                'information' => 'Modelo de mensagem utilizado no lembrete de fatura em aberto',
+                'information' => 'Modelo de mensagem utilizado no lembrete de fatura em aberto (manualmente ou via hook)',
                 'paghiper'    => 'Para anexar o boleto bancário do PagHiper neste template escreva: %paghiper_boleto% em qualquer parte da mensagem',
                 'rules'       => [
                     0 => [
@@ -292,9 +292,9 @@ if (!function_exists('templatesConfigurations')) {
                     1 => [
                         'id'          => 'controlByMinimalValue',
                         'label'       => 'Controle de Envio por Valor Mínimo',
-                        'description' => 'Aborta o envio se o valor da fatura for o <b>mínimo</b> definido <b>(exemplo: 10 para R$ 10,00)</b>',
+                        'description' => 'Aborta o envio se o valor da fatura for o <b>mínimo</b> definido',
                         'field'       => [
-                            'type' => 'number',
+                            'type' => 'text',
                         ]
                     ],
                     2 => [
@@ -335,9 +335,9 @@ if (!function_exists('templatesConfigurations')) {
                     1 => [
                         'id'          => 'controlByMinimalValue',
                         'label'       => 'Controle de Envio por Valor Mínimo',
-                        'description' => 'Aborta o envio se o valor da fatura for o <b>mínimo</b> definido <b>(exemplo: 10 para R$ 10,00)</b>',
+                        'description' => 'Aborta o envio se o valor da fatura for o <b>mínimo</b> definido',
                         'field'       => [
-                            'type' => 'number',
+                            'type' => 'text',
                         ]
                     ],
                     2 => [
@@ -371,9 +371,9 @@ if (!function_exists('templatesConfigurations')) {
                     1 => [
                         'id'          => 'controlByMinimalValue',
                         'label'       => 'Controle de Envio por Valor Mínimo',
-                        'description' => 'Aborta o envio se o valor da fatura for o <b>mínimo</b> definido <b>(exemplo: 10 para R$ 10,00)</b>',
+                        'description' => 'Aborta o envio se o valor da fatura for o <b>mínimo</b> definido',
                         'field'       => [
-                            'type' => 'number',
+                            'type' => 'text',
                         ]
                     ],
                     2 => [
@@ -408,9 +408,9 @@ if (!function_exists('templatesConfigurations')) {
                     1 => [
                         'id'          => 'controlByMinimalValue',
                         'label'       => 'Controle de Envio por Valor Mínimo',
-                        'description' => 'Aborta o envio se o valor da fatura for o <b>mínimo</b> definido <b>(exemplo: 10 para R$ 10,00)</b>',
+                        'description' => 'Aborta o envio se o valor da fatura for o <b>mínimo</b> definido',
                         'field'       => [
-                            'type' => 'number',
+                            'type' => 'text',
                         ]
                     ],
                     2 => [
@@ -445,9 +445,9 @@ if (!function_exists('templatesConfigurations')) {
                     1 => [
                         'id'          => 'controlByMinimalValue',
                         'label'       => 'Controle de Envio por Valor Mínimo',
-                        'description' => 'Aborta o envio se o valor da fatura for o <b>mínimo</b> definido <b>(exemplo: 10 para R$ 10,00)</b>',
+                        'description' => 'Aborta o envio se o valor da fatura for o <b>mínimo</b> definido',
                         'field'       => [
-                            'type' => 'number',
+                            'type' => 'text',
                         ]
                     ],
                     2 => [
@@ -468,7 +468,7 @@ if (!function_exists('templatesConfigurations')) {
             ],
             'ticketopen' => [
                 'name'        => 'Ticket Criado',
-                'information' => 'Modelo de mensagem enviada quando um ticket é aberto',
+                'information' => 'Modelo de mensagem enviada quando um ticket é aberto pelo cliente',
                 'rules'       => [
                     0 => [
                         'id'          => 'controlByClient',
@@ -496,7 +496,8 @@ if (!function_exists('templatesConfigurations')) {
                     ]
                 ],
                 'variables' => [
-                    'ticket'    => 'Id do Ticket',
+                    'id'        => 'Id do Ticket',
+                    'tid'       => 'Tid do Ticket',
                     'title'     => 'Título do Ticket',
                     'date'      => 'Data da Abertura do Ticket',
                     'hour'      => 'Hora da Abertura do Ticket',
@@ -505,7 +506,7 @@ if (!function_exists('templatesConfigurations')) {
             ],
             'ticketadminreply' => [
                 'name'        => 'Ticket Respondido',
-                'information' => 'Modelo de mensagem enviada quando um ticket é respondido',
+                'information' => 'Modelo de mensagem enviada quando um ticket é respondido pela equipe',
                 'rules'       => [
                     0 => [
                         'id'          => 'controlByClient',
@@ -541,7 +542,8 @@ if (!function_exists('templatesConfigurations')) {
                     ],
                 ],
                 'variables' => [
-                    'ticket'    => 'Id do Ticket',
+                    'id'        => 'Id do Ticket',
+                    'tid'       => 'Tid do Ticket',
                     'title'     => 'Título do Ticket',
                     'date'      => 'Data da Resposta ao Ticket',
                     'hour'      => 'Hora da Resposta ao Ticket',
@@ -774,7 +776,7 @@ if (!function_exists('templatesConfigurations')) {
             ],
             'aftermoduleready' => [
                 'name'        => 'Serviço Pronto',
-                'information' => 'Modelo de mensagem utilizado no botão de serviço pronto',
+                'information' => 'Modelo de mensagem utilizado no botão de serviço pronto (uso manual)',
                 'variables' => [
                     'product'  => 'Nome do Serviço',
                     'id'       => 'Id do Serviço',
