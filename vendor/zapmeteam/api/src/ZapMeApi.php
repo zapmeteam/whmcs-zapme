@@ -3,8 +3,6 @@
 namespace ZapMeTeam\Api;
 
 use Exception;
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ClientException;
 
 class ZapMeApi
 {
@@ -358,17 +356,19 @@ class ZapMeApi
     {
         $this->validateParameters();
 
-        try {
-            $request = (new Client)->post($this->getEndpoint(), [
-                'form_params' => $this->data
-            ]);
+        $curl = curl_init($this->getEndpoint());
 
-            $response = json_decode($request->getBody(), true);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $this->data);
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
 
-            $this->result = $response;
-        } catch (ClientException $e) {
-            $this->result = $e->getResponse()->getBody()->getContents();
-        }
+        $result = curl_exec($curl);
+        $json   = json_decode($result, true);
+
+        $this->result = $json;
 
         return true;
     }

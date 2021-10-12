@@ -240,7 +240,7 @@ function zapme_output($vars)
         <div class="alert alert-info text-center"><i class="fas fa-exclamation-circle" aria-hidden="true"></i> <b>O módulo não encontra-se configurado para uso!</b> Certifique-se de configurar o módulo para que o mesmo funcione corretamente.</div>
     <?php endif; ?>
     <?php if (isset($config->id) && $config->status === 'disable') : ?>
-        <div class="alert alert-danger text-center"><i class="fas fa-exclamation-circle" aria-hidden="true"></i> <b>ATENÇÃO!</b> O módulo encontra-se configurado, mas <b>o status está "Desativado".</b> Nenhuma mensagem será enviada até que o status seja "Ativo".</div>
+        <div class="alert alert-danger text-center"><i class="fas fa-exclamation-circle" aria-hidden="true"></i> <b>ATENÇÃO!</b> O módulo encontra-se configurado, mas <b>o status está "Desativado".</b> Nenhuma mensagem será enviada até que o status esteja <b>"Ativo".</b></div>
     <?php endif; ?>
     <?php if ($version > $vars['version']) : ?>
         <div class="alert alert-warning text-center">
@@ -317,13 +317,13 @@ function zapme_output($vars)
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="inputConfirmPassword">API</label>
-                                    <input type="text" name="api" class="form-control" value="<?= isset($config->api) ? $config->api : '' ?>" placeholder="api-d7e654d14378f40a4c54" required>
+                                    <input type="text" name="api" class="form-control" value="<?= isset($config->api) ? $config->api : '' ?>" placeholder="Insira sua chave de API" required>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="inputConfirmPassword">Chave Secreta</label>
-                                    <input type="number" name="secret" class="form-control" value="<?= isset($config->secret) ? $config->secret : '' ?>" placeholder="4586748513" required>
+                                    <input type="number" name="secret" class="form-control" value="<?= isset($config->secret) ? $config->secret : '' ?>" placeholder="Insira sua sua Chave Secreta" required>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -406,6 +406,7 @@ function zapme_output($vars)
                                                 <div class="alert alert-warning text-center">
                                                     <?= $templateConfiguration['paghiper'] ?>
                                                 </div>
+                                                <small class="text-danger"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> O boleto bancário do PagHiper só será enviado se o sistema atender as seguintes condições: <b>I.</b> A fatura for superior à R$ 3,00. <b>II.</b> A fatura estiver com o método de pagamento PagHiper. <b>III.</b> O módulo do PagHiper estiver ativado e marcado como visível. <b>Caso contrário, as variáveis %paghiper_barcode% e %paghiper_boleto% serão removidas do envio</b></small>
                                             <?php endif; ?>
                                             <hr>
                                             <div class="form-group">

@@ -201,7 +201,7 @@ if (!function_exists('templatesConfigurations')) {
                     1 => [
                         'id'          => 'controlByMinimalValue',
                         'label'       => 'Controle de Envio por Valor Mínimo',
-                        'description' => 'Aborta o envio se o valor da fatura for <b>inferior</b> ao valor definido <b>(exemplo: 10 para R$ 10,00)</b>',
+                        'description' => 'Aborta o envio se o valor da fatura for <b>inferior</b> ao valor definido',
                         'field'       => [
                             'type' => 'text',
                         ]
@@ -247,7 +247,7 @@ if (!function_exists('templatesConfigurations')) {
                     1 => [
                         'id'          => 'controlByMinimalValue',
                         'label'       => 'Controle de Envio por Valor Mínimo',
-                        'description' => 'Aborta o envio se o valor da fatura for <b>inferior</b> ao valor definido <b>(exemplo: 10 para R$ 10,00)</b>',
+                        'description' => 'Aborta o envio se o valor da fatura for <b>inferior</b> ao valor definido',
                         'field'       => [
                             'type' => 'text',
                         ]
@@ -292,7 +292,7 @@ if (!function_exists('templatesConfigurations')) {
                     1 => [
                         'id'          => 'controlByMinimalValue',
                         'label'       => 'Controle de Envio por Valor Mínimo',
-                        'description' => 'Aborta o envio se o valor da fatura for o <b>mínimo</b> determinado <b>(exemplo: 10 para R$ 10,00)</b>',
+                        'description' => 'Aborta o envio se o valor da fatura for o <b>mínimo</b> definido <b>(exemplo: 10 para R$ 10,00)</b>',
                         'field'       => [
                             'type' => 'number',
                         ]
@@ -335,7 +335,7 @@ if (!function_exists('templatesConfigurations')) {
                     1 => [
                         'id'          => 'controlByMinimalValue',
                         'label'       => 'Controle de Envio por Valor Mínimo',
-                        'description' => 'Aborta o envio se o valor da fatura for o <b>mínimo</b> determinado <b>(exemplo: 10 para R$ 10,00)</b>',
+                        'description' => 'Aborta o envio se o valor da fatura for o <b>mínimo</b> definido <b>(exemplo: 10 para R$ 10,00)</b>',
                         'field'       => [
                             'type' => 'number',
                         ]
@@ -371,7 +371,7 @@ if (!function_exists('templatesConfigurations')) {
                     1 => [
                         'id'          => 'controlByMinimalValue',
                         'label'       => 'Controle de Envio por Valor Mínimo',
-                        'description' => 'Aborta o envio se o valor da fatura for o <b>mínimo</b> determinado <b>(exemplo: 10 para R$ 10,00)</b>',
+                        'description' => 'Aborta o envio se o valor da fatura for o <b>mínimo</b> definido <b>(exemplo: 10 para R$ 10,00)</b>',
                         'field'       => [
                             'type' => 'number',
                         ]
@@ -408,7 +408,7 @@ if (!function_exists('templatesConfigurations')) {
                     1 => [
                         'id'          => 'controlByMinimalValue',
                         'label'       => 'Controle de Envio por Valor Mínimo',
-                        'description' => 'Aborta o envio se o valor da fatura for o <b>mínimo</b> determinado <b>(exemplo: 10 para R$ 10,00)</b>',
+                        'description' => 'Aborta o envio se o valor da fatura for o <b>mínimo</b> definido <b>(exemplo: 10 para R$ 10,00)</b>',
                         'field'       => [
                             'type' => 'number',
                         ]
@@ -445,7 +445,7 @@ if (!function_exists('templatesConfigurations')) {
                     1 => [
                         'id'          => 'controlByMinimalValue',
                         'label'       => 'Controle de Envio por Valor Mínimo',
-                        'description' => 'Aborta o envio se o valor da fatura for o <b>mínimo</b> determinado <b>(exemplo: 10 para R$ 10,00)</b>',
+                        'description' => 'Aborta o envio se o valor da fatura for o <b>mínimo</b> definido <b>(exemplo: 10 para R$ 10,00)</b>',
                         'field'       => [
                             'type' => 'number',
                         ]
