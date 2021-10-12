@@ -774,7 +774,7 @@ class ZapMeHooks
         if (isset($response['result']) && $response['status_result'] === 'message_queued') {
             logActivity('[ZapMe][' . $this->hook . '] Envio de Mensagem: Sucesso. Id da Mensagem: ' . $response['messageid']);
 
-            if ($this->module->logsystem === 'active') {
+            if ($this->module->logsystem == true) {
                 moduleSaveLog($message, strtolower($this->hook), $clientId, $response['messageid']);
             }
             return true;

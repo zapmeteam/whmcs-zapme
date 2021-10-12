@@ -255,7 +255,7 @@ class ZapMeModule
             ->getResult('all', false);
 
         if (isset($response['result']) && $response['status_result'] === 'message_queued') {
-            if ($module->logsystem === 'active') {
+            if ($module->logsystem == true) {
                 moduleSaveLog($message, 'aftermoduleready', $client->id, $response['messageid']);
             }
             return alert('Tudo certo! <b>Procedimento efetuado com sucesso.</b>');
@@ -294,7 +294,7 @@ class ZapMeModule
             ->getResult('all', false);
 
         if (isset($response['result']) && $response['status_result'] === 'message_queued') {
-            if ($module->logsystem === 'active') {
+            if ($module->logsystem == true) {
                 moduleSaveLog($message, 'manualmessage', $client->id, $response['messageid']);
             }
             return alert('Tudo certo! <b>Procedimento efetuado com sucesso.</b>');
