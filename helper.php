@@ -7,6 +7,7 @@ if (!defined('WHMCS')) {
 }
 
 define('ZAPMEMODULE_HOMEPATH', __DIR__);
+define('ZAPMEMODULE_ACTIVITYLOG', true);
 
 if (!function_exists('modulePagHiperExtractPdf')) {
     /**
@@ -112,7 +113,9 @@ if (!function_exists('clientConsentiment')) {
         $value = strtolower($value);
 
         if ($value === 'n' || $value === 'nao') {
-            logActivity('[ZapMe][' . $hook . '] Envio de Mensagem Abortado: O cliente ' . $client->firstname . ' (#' . $client->id . ') desativou o recebimento de alertas através do campo customizado');
+            if (ZAPMEMODULE_ACTIVITYLOG === true) {
+                logActivity('[ZapMe][' . $hook . '] Envio de Mensagem Abortado: O cliente ' . $client->firstname . ' (#' . $client->id . ') desativou o recebimento de alertas através do campo customizado');
+            }
             return false;
         }
 

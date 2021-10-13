@@ -63,12 +63,16 @@ class ZapMeHooks
     public function dispatch($vars)
     {
         if (!isset($this->module->id)) {
-            logActivity('[ZapMe][' . $this->hook . '] Processo Abortado: Módulo não configurado');
+            if (ZAPMEMODULE_ACTIVITYLOG === true) {
+                logActivity('[ZapMe][' . $this->hook . '] Processo Abortado: Módulo não configurado');
+            }
             return;
         }
 
         if ($this->module->status == false) {
-            logActivity('[ZapMe][' . $this->hook . '] Processo Abortado: Módulo desativado');
+            if (ZAPMEMODULE_ACTIVITYLOG === true) {
+                logActivity('[ZapMe][' . $this->hook . '] Processo Abortado: Módulo desativado');
+            }
             return;
         }
 
@@ -751,7 +755,9 @@ class ZapMeHooks
         $date = (int) date('d');
 
         if ($date == 1 && $this->module->logautoremove == true) {
-            logActivity('[ZapMe][' . $this->hook . '] Rotina de Limpeza de Registros de Logs');
+            if (ZAPMEMODULE_ACTIVITYLOG === true) {
+                logActivity('[ZapMe][' . $this->hook . '] Rotina de Limpeza de Registros de Logs');
+            }
             Capsule::table('mod_zapme_logs')->truncate();
         }
 
@@ -772,7 +778,9 @@ class ZapMeHooks
 
         Capsule::table('mod_zapme')->where('id', 1)->update(['service' => $service]);
 
-        logActivity('[ZapMe][' . $this->hook . '] Atualização dos Dados do Serviço da ZapMe');
+        if (ZAPMEMODULE_ACTIVITYLOG === true) {
+            logActivity('[ZapMe][' . $this->hook . '] Atualização dos Dados do Serviço da ZapMe');
+        }
     }
 
     /**
@@ -790,7 +798,9 @@ class ZapMeHooks
         $response = $this->ZapMeApi->sendMessage($phone, $message, $document)->getResult('all', false);
 
         if (isset($response['result']) && $response['status_result'] === 'message_queued') {
-            logActivity('[ZapMe][' . $this->hook . '] Envio de Mensagem: Sucesso. Id da Mensagem: ' . $response['messageid']);
+            if (ZAPMEMODULE_ACTIVITYLOG === true) {
+                logActivity('[ZapMe][' . $this->hook . '] Envio de Mensagem: Sucesso. Id da Mensagem: ' . $response['messageid']);
+            }
 
             if ($this->module->logsystem == true) {
                 moduleSaveLog($message, strtolower($this->hook), $clientId, $response['messageid']);
@@ -798,7 +808,9 @@ class ZapMeHooks
             return true;
         }
 
-        logActivity('[ZapMe][' . $this->hook . '] Envio de Mensagem: Erro: ' . $response);
+        if (ZAPMEMODULE_ACTIVITYLOG === true) {
+            logActivity('[ZapMe][' . $this->hook . '] Envio de Mensagem: Erro: ' . $response);
+        }
         return false;
     }
 }
