@@ -35,7 +35,7 @@ class ZapMeTemplateHandle
      */
     public function templateStatus(): bool
     {
-        if ($this->template->status === false) {
+        if ($this->template->status == false) {
             logActivity('[ZapMe][' . $this->hook . '] Envio de Mensagem Abortado: Template Desativado');
             return false;
         }

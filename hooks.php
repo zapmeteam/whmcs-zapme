@@ -101,8 +101,7 @@ add_hook('AdminAreaClientSummaryPage', 1, function ($vars) use ($zapMeModule) {
 	if (isset($zapMeModule->id) && $zapMeModule->status == true) {
 		$html = '';
 		$html .= '<a href="#" data-toggle="modal" data-target="#zapmemessage" target="_blank" class="btn btn-warning">[ZapMe] Envio Manual de Mensagem</a>';
-		$html .=
-			'
+		$html .= '
 		<div class="modal fade" id="zapmemessage">
 			<div class="modal-dialog">
 				<div class="modal-content">

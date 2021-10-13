@@ -44,7 +44,7 @@ class ZapMeHooks
 
         $this->hook = $hook;
 
-        if (isset($this->module->api) && isset($this->module->secret) && $this->hook !== 'DailyCronJob') {
+        if (isset($this->module->api) && isset($this->module->secret)) {
             $this->ZapMeApi = (new ZapMeApi)
                 ->setApi($this->module->api)
                 ->setSecret($this->module->secret);
@@ -62,16 +62,14 @@ class ZapMeHooks
      */
     public function dispatch($vars)
     {
-        if ($this->hook !== 'DailyCronJob') {
-            if (!isset($this->module->id)) {
-                logActivity('[ZapMe][' . $this->hook . '] Envio de Mensagem Abortado: Módulo não configurado');
-                return;
-            }
+        if (!isset($this->module->id)) {
+            logActivity('[ZapMe][' . $this->hook . '] Processo Abortado: Módulo não configurado');
+            return;
+        }
 
-            if ($this->module->status == false) {
-                logActivity('[ZapMe][' . $this->hook . '] Envio de Mensagem Abortado: Módulo desativado');
-                return;
-            }
+        if ($this->module->status == false) {
+            logActivity('[ZapMe][' . $this->hook . '] Processo Abortado: Módulo desativado');
+            return;
         }
 
         $hook = $this->hook;
@@ -742,19 +740,39 @@ class ZapMeHooks
         $this->endOfDispatch($message, $phone, $client->id);
     }
 
-    public function DailyCronJob($vars)
+    /**
+     * Daily Cron Job Hook
+     *
+     * @param [type] $vars
+     * @return void
+     */
+    private function DailyCronJob($vars)
     {
-        if ($this->module->logsystem == false) {
+        $date = (int) date('d');
+
+        if ($date == 1 && $this->module->logautoremove == true) {
+            logActivity('[ZapMe][' . $this->hook . '] Rotina de Limpeza de Registros de Logs');
+            Capsule::table('mod_zapme_logs')->truncate();
+        }
+
+        $zapMeApi = $this->ZapMeApi
+            ->authApi()
+            ->getResult('all', false);
+
+        if (!isset($zapMeApi['result']) || $zapMeApi['result'] !== 'success') {
             return;
         }
 
-        $date = (int) date('d');
+        $service = serialize([
+            'status'  => $zapMeApi['service'],
+            'duedate' => $zapMeApi['duedate'],
+            'plan'    => $zapMeApi['planname'],
+            'auth'    => $zapMeApi['qrcodeauth'],
+        ]);
 
-        if ($date == 1) {
-            logActivity('[ZapMe][' . $this->hook . '] Rotina de Limpeza de Registros de Logs');
-            Capsule::table('mod_zapme_logs')->truncate();
-            return true;
-        }
+        Capsule::table('mod_zapme')->where('id', 1)->update(['service' => $service]);
+
+        logActivity('[ZapMe][' . $this->hook . '] Atualização dos Dados do Serviço da ZapMe');
     }
 
     /**

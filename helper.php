@@ -980,12 +980,11 @@ if (!function_exists('drawTemplatesVariables')) {
     function drawTemplatesVariables(string $code, bool $modulePagHiper = false): string
     {
         $alert  = '<div class="alert alert-info text-center">';
-
-        $alert .= '%name% - Nome do cliente (completo)<br />';
-        $alert .= '%firstname% - Primeiro nome do cliente<br />';
-        $alert .= '%lastname% - Último nome do cliente<br />';
-        $alert .= '%email% - E-mail do cliente<br />';
-        $alert .= '%company% - Compania do Cliente<br />';
+        $alert .= '%name% - Nome do cliente (completo)<br>';
+        $alert .= '%firstname% - Primeiro nome do cliente<br>';
+        $alert .= '%lastname% - Último nome do cliente<br>';
+        $alert .= '%email% - E-mail do cliente<br>';
+        $alert .= '%company% - Compania do Cliente<br>';
         $alert .= '<hr>';
 
         $variables = templatesConfigurations($code)['variables'];
