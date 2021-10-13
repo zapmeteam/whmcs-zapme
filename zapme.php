@@ -228,7 +228,7 @@ function zapme_output($vars)
             $templates = Capsule::table('mod_zapme_templates')->where('id', (int) $request->get('template'))->get();
             break;
         case 'logs':
-            $logs = Capsule::table('mod_zapme_logs')->get();
+            $logs = Capsule::table('mod_zapme_logs')->orderBy('id', 'desc')->get();
             break;
     }
 
@@ -343,7 +343,7 @@ function zapme_output($vars)
                                         <option value="1" <?= isset($config->logautoremove) && $config->logautoremove == true ? 'selected' : '' ?>>Sim</option>
                                         <option value="0" <?= isset($config->logautoremove) && $config->logautoremove == false ? 'selected' : '' ?>>Não</option>
                                     </select>
-                                    Entenda: <i class="fas fa-question-circle text-danger" aria-hidden="true" data-toggle="tooltip" data-placement="top" data-html="true" title="Apaga os registros de logs do módulo todo dia primeiro de cada mês através das ações de hooks do WHMCS."></i>
+                                    Entenda: <i class="fas fa-question-circle text-danger" aria-hidden="true" data-toggle="tooltip" data-placement="top" data-html="true" title="Apaga os registros de logs do módulo todo dia primeiro de cada mês, através das ações de hooks do WHMCS."></i>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -481,7 +481,7 @@ function zapme_output($vars)
         </div>
         <div class="tab-pane <?= $tab === 'logs' ? 'active' : '' ?>" id="logs">
             <button class="btn btn-danger btn-sm" style="margin: 0px 0px 15px 0px;" data-toggle="modal" data-target="#clearlogs">APAGAR REGISTROS</button>
-            <table id="tableadmin" class="table table-striped table-responsive" style="width: 100% !important">
+            <table id="tablelog" class="table table-striped table-responsive" style="width: 100% !important">
                 <thead>
                     <tr>
                         <td>#</td>
@@ -515,7 +515,7 @@ function zapme_output($vars)
                         </div>
                         <div class="modal-body">
                             <form action="addonmodules.php?module=zapme&internalconfig=true&action=logs" method="post">
-                                <p class="justify">Este procedimento irá remover todos os registros de logs do módulo existentes em seu banco de dados. Para prosseguir confirme o procedimento abaixo:</p>
+                                <p class="justify">Este procedimento irá remover todos os registros de logs do módulo existentes em seu banco de dados. <b>Para prosseguir confirme o procedimento abaixo:</b></p>
                                 <div class="form-group">
                                     <div class="form-check">
                                         <input id="my-input" class="form-check-input" type="checkbox" name="clearlogs">
@@ -536,10 +536,8 @@ function zapme_output($vars)
     <p class="footer" style="margin-top: 10px !important;"><a href="https://zapme.com.br/" target="_blank"><b>ZapMe</b></a> - Notificações Inteligentes via WhatsApp | Versão: <b><?= $vars['version'] ?></b></p>
     <script>
         $(document).ready(function() {
-            $("#tableadmin").DataTable({
-                "pageLength": 25
-            });
             $("#tablelog").DataTable({
+                "pageLength": 25,
                 "order": [
                     [0, "desc"]
                 ],

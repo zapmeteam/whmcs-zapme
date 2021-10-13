@@ -94,7 +94,9 @@ class ZapMeModule
             ->getResult('all', false);
 
         if (!is_array($zapMeApi) && !isset($zapMeApi['result'])) {
-            logActivity('[ZapMe] Erro: ' . $zapMeApi);
+            if (ZAPMEMODULE_ACTIVITYLOG === true) {
+                logActivity('[ZapMe] Erro: ' . $zapMeApi);
+            }
             return alert('Ops! <b>Houve algum erro ao validar a sua API.</b> Verifique os logs do sistema e contate o suporte da ZapMe.</b>', 'danger');
         }
 
@@ -262,7 +264,9 @@ class ZapMeModule
             }
             return alert('Tudo certo! <b>Procedimento efetuado com sucesso.</b>');
         } else {
-            logActivity('[ZapMe][AfterModuleReady] Envio de Mensagem: Erro: ' . $response);
+            if (ZAPMEMODULE_ACTIVITYLOG === true) {
+                logActivity('[ZapMe][AfterModuleReady] Envio de Mensagem: Erro: ' . $response);
+            }
             return alert('Ops! <b>O procedimento não foi realizado!</b> Confira os logs do sistema.', 'danger');
         }
     }
@@ -301,7 +305,9 @@ class ZapMeModule
             }
             return alert('Tudo certo! <b>Procedimento efetuado com sucesso.</b>');
         } else {
-            logActivity('[ZapMe][AfterModuleReady] Envio de Mensagem: Erro: ' . $response);
+            if (ZAPMEMODULE_ACTIVITYLOG === true) {
+                logActivity('[ZapMe][AfterModuleReady] Envio de Mensagem: Erro: ' . $response);
+            }
             return alert('Ops! <b>O procedimento não foi realizado!</b> Confira os logs do sistema.', 'danger');
         }
     }

@@ -36,7 +36,9 @@ class ZapMeTemplateHandle
     public function templateStatus(): bool
     {
         if ($this->template->status == false) {
-            logActivity('[ZapMe][' . $this->hook . '] Envio de Mensagem Abortado: Template Desativado');
+            if (ZAPMEMODULE_ACTIVITYLOG === true) {
+                logActivity('[ZapMe][' . $this->hook . '] Envio de Mensagem Abortado: Template Desativado');
+            }
             return false;
         }
 
@@ -84,7 +86,9 @@ class ZapMeTemplateHandle
 
         foreach ($clients as $key => $value) {
             if ($value !== '' && (int) $client->id == (int) $value) {
-                logActivity('[ZapMe][' . $this->hook . '] Envio de Mensagem Abortado: O id do cliente (#' . $client->id . ') foi detectado nas regras de controle de envio');
+                if (ZAPMEMODULE_ACTIVITYLOG === true) {
+                    logActivity('[ZapMe][' . $this->hook . '] Envio de Mensagem Abortado: O id do cliente (#' . $client->id . ') foi detectado nas regras de controle de envio');
+                }
                 return false;
             }
         }
@@ -108,7 +112,9 @@ class ZapMeTemplateHandle
         }
 
         if ($invoice->total < $this->template->configurations[$rule]) {
-            logActivity('[ZapMe][' . $this->hook . '] Envio de Mensagem Abortado: O valor da fatura é inferior ao determinado (' . $this->template->configurations[$rule] . ') nas regras de controle de envio');
+            if (ZAPMEMODULE_ACTIVITYLOG === true) {
+                logActivity('[ZapMe][' . $this->hook . '] Envio de Mensagem Abortado: O valor da fatura é inferior ao determinado (' . $this->template->configurations[$rule] . ') nas regras de controle de envio');
+            }
             return false;
         }
 
@@ -132,7 +138,9 @@ class ZapMeTemplateHandle
 
         foreach ($days as $key => $value) {
             if ($value !== '' && $value === date('w')) {
-                logActivity('[ZapMe][' . $this->hook . '] Envio de Mensagem Abortado: O dia do envio foi determinado nas regras de controle de envio');
+                if (ZAPMEMODULE_ACTIVITYLOG === true) {
+                    logActivity('[ZapMe][' . $this->hook . '] Envio de Mensagem Abortado: O dia do envio foi determinado nas regras de controle de envio');
+                }
                 return false;
             }
         }
@@ -159,7 +167,9 @@ class ZapMeTemplateHandle
 
         foreach ($gateways as $key => $value) {
             if (!empty($value) && mb_strpos($invoice->paymentmethod, $value) !== false) {
-                logActivity('[ZapMe][' . $this->hook . '] Envio de Mensagem Abortado: O gateway do pagamento foi determinado nas regras de controle de envio');
+                if (ZAPMEMODULE_ACTIVITYLOG === true) {
+                    logActivity('[ZapMe][' . $this->hook . '] Envio de Mensagem Abortado: O gateway do pagamento foi determinado nas regras de controle de envio');
+                }
                 return false;
             }
         }
@@ -186,7 +196,9 @@ class ZapMeTemplateHandle
 
         foreach ($depparments as $key => $value) {
             if ($value !== '' && (int) $value == (int) $vars['deptid']) {
-                logActivity('[ZapMe][' . $this->hook . '] Envio de Mensagem Abortado: O departamento do ticket foi determinado nas regras de controle de envio');
+                if (ZAPMEMODULE_ACTIVITYLOG === true) {
+                    logActivity('[ZapMe][' . $this->hook . '] Envio de Mensagem Abortado: O departamento do ticket foi determinado nas regras de controle de envio');
+                }
                 return false;
             }
         }
@@ -213,7 +225,9 @@ class ZapMeTemplateHandle
 
         foreach ($members as $key => $value) {
             if (!empty($value) && mb_strpos($vars['admin'], $value) !== false) {
-                logActivity('[ZapMe][' . $this->hook . '] Envio de Mensagem Abortado: Nome do membro da equipe foi determinado nas regras de controle de envio');
+                if (ZAPMEMODULE_ACTIVITYLOG === true) {
+                    logActivity('[ZapMe][' . $this->hook . '] Envio de Mensagem Abortado: Nome do membro da equipe foi determinado nas regras de controle de envio');
+                }
                 return false;
             }
         }
@@ -240,7 +254,9 @@ class ZapMeTemplateHandle
 
         foreach ($members as $key => $value) {
             if (!empty($value) && mb_strpos($vars['email'], $value) !== false) {
-                logActivity('[ZapMe][' . $this->hook . '] Envio de Mensagem Abortado: Parte do e-mail do cliente foi determinado nas regras de controle de envio');
+                if (ZAPMEMODULE_ACTIVITYLOG === true) {
+                    logActivity('[ZapMe][' . $this->hook . '] Envio de Mensagem Abortado: Parte do e-mail do cliente foi determinado nas regras de controle de envio');
+                }
                 return false;
             }
         }
@@ -272,7 +288,9 @@ class ZapMeTemplateHandle
         ];
 
         if ($status !== 'Qualquer' && ($translated[$status] === $client->status)) {
-            logActivity('[ZapMe][' . $this->hook . '] Envio de Mensagem Abortado: O status do cliente foi determinado nas regras de controle de envio');
+            if (ZAPMEMODULE_ACTIVITYLOG === true) {
+                logActivity('[ZapMe][' . $this->hook . '] Envio de Mensagem Abortado: O status do cliente foi determinado nas regras de controle de envio');
+            }
             return false;
         }
 
@@ -298,7 +316,9 @@ class ZapMeTemplateHandle
 
         foreach ($servers as $key => $value) {
             if ($value !== '' && (int) $value == (int) $service['id']) {
-                logActivity('[ZapMe][' . $this->hook . '] Envio de Mensagem Abortado: Id do servidor foi determinado nas regras de controle de envio');
+                if (ZAPMEMODULE_ACTIVITYLOG === true) {
+                    logActivity('[ZapMe][' . $this->hook . '] Envio de Mensagem Abortado: Id do servidor foi determinado nas regras de controle de envio');
+                }
                 return false;
             }
         }
@@ -323,7 +343,9 @@ class ZapMeTemplateHandle
 
         foreach ($products as $key => $value) {
             if ($value !== '' && (int) $value == (int) $product['id']) {
-                logActivity('[ZapMe][' . $this->hook . '] Envio de Mensagem Abortado: Id do produto foi determinado nas regras de controle de envio');
+                if (ZAPMEMODULE_ACTIVITYLOG === true) {
+                    logActivity('[ZapMe][' . $this->hook . '] Envio de Mensagem Abortado: Id do produto foi determinado nas regras de controle de envio');
+                }
                 return false;
             }
         }
@@ -348,7 +370,9 @@ class ZapMeTemplateHandle
 
         foreach ($members as $key => $value) {
             if (!empty($value) && mb_strpos($product['name'], $value) !== false) {
-                logActivity('[ZapMe][' . $this->hook . '] Envio de Mensagem Abortado: Parte do nome do produto foi determinado nas regras de controle de envio');
+                if (ZAPMEMODULE_ACTIVITYLOG === true) {
+                    logActivity('[ZapMe][' . $this->hook . '] Envio de Mensagem Abortado: Parte do nome do produto foi determinado nas regras de controle de envio');
+                }
                 return false;
             }
         }
@@ -512,19 +536,25 @@ class ZapMeTemplateHandle
 
         if (modulePagHiperExist() === false) {
             $this->removePagHiperBilletDetailsFromMessage();
-            logActivity('[ZapMe][' . $this->hook . '] Inclusão de detalhes do Boleto Bancário da PagHiper foram rejeitados: O gateway PagHiper não está configurado como ativado e visível.');
+            if (ZAPMEMODULE_ACTIVITYLOG === true) {
+                logActivity('[ZapMe][' . $this->hook . '] Inclusão de detalhes do Boleto Bancário da PagHiper foram rejeitados: O gateway PagHiper não está configurado como ativado e visível.');
+            }
             return $document;
         }
 
         if (mb_strpos($invoice->paymentmethod, 'paghiper') === false) {
             $this->removePagHiperBilletDetailsFromMessage();
-            logActivity('[ZapMe][' . $this->hook . '] Inclusão de detalhes do Boleto Bancário da PagHiper foram rejeitados: A fatura não está com o método de pagamento PagHiper.');
+            if (ZAPMEMODULE_ACTIVITYLOG === true) {
+                logActivity('[ZapMe][' . $this->hook . '] Inclusão de detalhes do Boleto Bancário da PagHiper foram rejeitados: A fatura não está com o método de pagamento PagHiper.');
+            }
             return $document;
         }
 
         if ($invoice->total < 3.00) {
             $this->removePagHiperBilletDetailsFromMessage();
-            logActivity('[ZapMe][' . $this->hook . '] Inclusão de detalhes do Boleto Bancário da PagHiper foram rejeitados: A fatura é inferior a R$ 3,00');
+            if (ZAPMEMODULE_ACTIVITYLOG === true) {
+                logActivity('[ZapMe][' . $this->hook . '] Inclusão de detalhes do Boleto Bancário da PagHiper foram rejeitados: A fatura é inferior a R$ 3,00');
+            }
             return $document;
         }
 
