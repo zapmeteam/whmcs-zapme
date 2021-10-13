@@ -136,7 +136,7 @@ function zapme_activate(): array
                 'configuration' => false
             ],
             'clientadd' => [
-                'text' => 'Olá %name%! Seja bem-vindo a %company%! Agradecemos a preferência em nossa plataforma, ficamos contentes com a sua chegada.',
+                'text' => 'Olá %name%! Seja bem-vindo a %companyname%! Agradecemos a preferência em nossa plataforma, ficamos contentes com a sua chegada.',
                 'configuration' => true
             ],
             'clientlogin' => [

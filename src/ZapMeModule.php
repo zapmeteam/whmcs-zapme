@@ -132,17 +132,19 @@ class ZapMeModule
      */
     private function internalActionEditTemplates(ParameterBag $post = null): string
     {
-        if (!Capsule::table('mod_zapme_templates')->where('id', $post->get('messageid'))->exists()) {
+        $templateId = (int) $post->get('messageid');
+
+        if (!Capsule::table('mod_zapme_templates')->where('id', $templateId)->exists()) {
             return alert('<b>Ooops!</b> O template solicitado para edição não existe no banco de dados.', 'danger');
         }
 
-        Capsule::table('mod_zapme_templates')->where('id', $post->get('messageid'))->update([
+        Capsule::table('mod_zapme_templates')->where('id', $templateId)->update([
             'message'    => $post->get('message'),
             'status'     => (int) $post->get('status'),
             'updated_at' => $this->now
         ]);
 
-        return alert('Tudo certo! <b>Template #' . $post->get('messageid') . ' editado com sucesso.</b>');
+        return alert('Tudo certo! <b>Template #' . $templateId . ' editado com sucesso.</b>');
     }
 
     /**
@@ -154,7 +156,7 @@ class ZapMeModule
      */
     private function internalActionEditTemplateRules(ParameterBag $post = null): string
     {
-        $template             = Capsule::table('mod_zapme_templates')->where('id', $post->get('template'))->first();
+        $template = Capsule::table('mod_zapme_templates')->where('id', $post->get('template'))->first();
         $templateDescriptions = templatesConfigurations($template->code);
 
         if (!isset($templateDescriptions['rules'])) {
@@ -344,8 +346,8 @@ class ZapMeModule
                             <li><b>Destinatário:</b> {$response['phone']}</li>
                             <li><b>Status:</b> {$status[$response['messagestatus']]}</li>
                             <li><b>Mensagem:</b> {$response['message']}</li>
-                            <li><b>Inserido em Fila:</b> " . date('d/m/Y H:i:s', strtotime($response['created'])) . "</li>
-                            <li><b>Última Atualização:</b> " . date('d/m/Y H:i:s', strtotime($response['updated'])) . "</li>
+                            <li><b>Criado:</b> " . date('d/m/Y H:i:s', strtotime($response['created'])) . "</li>
+                            <li><b>Atualizado:</b> " . date('d/m/Y H:i:s', strtotime($response['updated'])) . "</li>
                         </ul>
                     </div>";
         } else {
