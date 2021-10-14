@@ -917,7 +917,7 @@ if (!function_exists('templatesConfigurations')) {
                 ]
             ],
             'clientchangepassword' => [
-                'name'        => 'Troca de Senha do Cliente',
+                'name'        => 'Troca de Senha',
                 'information' => 'Modelo de mensagem enviada na troca de senha da conta de um cliente',
                 'rules'       => [
                     0 => [
