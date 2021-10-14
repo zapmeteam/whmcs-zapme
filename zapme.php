@@ -426,7 +426,6 @@ function zapme_output($vars)
                                                     <option value="1" <?= $template->status == true ? 'selected' : '' ?>>Ativado</option>
                                                     <option value="0" <?= $template->status == false ? 'selected' : '' ?>>Desativado</option>
                                                 </select>
-                                                <small class="text-danger"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Se desativado, esta mensagem não será enviada</small>
                                             </div>
                                             <?php if ($template->allowconfiguration) : ?>
                                                 <a class="btn btn-danger btn-sm" href="addonmodules.php?module=zapme&tab=templates&action=editrules&template=<?= $template->id ?>">REGRAS DE ENVIO</a>
@@ -485,6 +484,7 @@ function zapme_output($vars)
                 <thead>
                     <tr>
                         <td>#</td>
+                        <td>Id da Mensagem <i class="fas fa-question-circle text-danger" aria-hidden="true" data-toggle="tooltip" data-placement="top" data-html="true" title="Id da mensagem cadastrada na fila de mensagens da ZapMe"></i></td>
                         <td>Cliente</td>
                         <td>Mensagem</td>
                         <td>Data do Envio</td>
@@ -496,6 +496,7 @@ function zapme_output($vars)
                         $client = Client::find($log->clientid); ?>
                         <tr>
                             <th><?= $log->id ?></th>
+                            <th>#<?= $log->messageid ?></th>
                             <th><a href="clientssummary.php?userid=<?= $client->id ?>" target=_blank><?= $client->firstname . ' ' . $client->lastname . ' (#' . $log->clientid . ')' ?></a></th>
                             <th><?= $log->message ?></th>
                             <th><?= date('d/m/Y H:i:s', strtotime($log->created_at)) ?></th>

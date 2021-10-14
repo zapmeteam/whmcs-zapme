@@ -534,6 +534,13 @@ class ZapMeTemplateHandle
     {
         $document = [];
 
+        if (
+            mb_strpos($this->template->message, '%paghiper_barcode%') === false
+            && mb_strpos($this->template->message, '%paghiper_boleto%') === false
+        ) {
+            return $document;
+        }
+
         if (modulePagHiperExist() === false) {
             $this->removePagHiperBilletDetailsFromMessage();
             if (ZAPMEMODULE_ACTIVITYLOG === true) {
