@@ -353,7 +353,7 @@ function zapme_output($vars)
                                         <option value="0">- Padrão do WHMCS</option>
                                         <?php foreach ($customfields as $customfield) : ?>
                                             <option value="<?= $customfield->id ?>" <?= isset($config->clientphonefieldid) && $config->clientphonefieldid == $customfield->id ? 'selected' : '' ?>>#<?= $customfield->id ?> - Nome: <?= $customfield->fieldname ?></option>
-                                        <?php endforeach ?>
+                                        <?php endforeach; ?>
                                     </select>
                                     Entenda: <i class="fas fa-question-circle text-danger" aria-hidden="true" data-toggle="tooltip" data-placement="top" data-html="true" title="Permite usar um campo customizado de Telefone diferente do padrão do WHMCS. <b>Este campo necessita que o formato do telefone seja: DDI + DDD + Telefone.</b> Caso não seja identificado o DDI no campo customizado o sistema irá obter o DDI do campo de Telefone padrão do WHMCS."></i>
                                 </div>
@@ -365,7 +365,7 @@ function zapme_output($vars)
                                         <option value="0">- Nenhum</option>
                                         <?php foreach ($customfields as $customfield) : ?>
                                             <option value="<?= $customfield->id ?>" <?= isset($config->clientconsentfieldid) && $config->clientconsentfieldid == $customfield->id ? 'selected' : '' ?>>#<?= $customfield->id ?> - Nome: <?= $customfield->fieldname ?></option>
-                                        <?php endforeach ?>
+                                        <?php endforeach; ?>
                                     </select>
                                     Entenda: <i class="fas fa-question-circle text-danger" aria-hidden="true" data-toggle="tooltip" data-placement="top" data-html="true" title="Campo custommizado de cadastro para viabilizar o conscentimento do cliente para receber ou não as mensagens encaminhadas pelo sistema. Se definido como <b>Nenhum</b> o envio será efetuado normalmente.<br><br>O valor do campo customizado para seleção do cliente deve conter: Sim,Não (com ou sem acento). <b>Caso o cliente selecione Não, então os envios serão abortados.</b>"></i>
                                 </div>
@@ -486,7 +486,6 @@ function zapme_output($vars)
                         <td>#</td>
                         <td>Id da Mensagem <i class="fas fa-question-circle text-danger" aria-hidden="true" data-toggle="tooltip" data-placement="top" data-html="true" title="Id da mensagem cadastrada na fila de mensagens da ZapMe"></i></td>
                         <td>Cliente</td>
-                        <td>Mensagem</td>
                         <td>Data do Envio</td>
                         <td></td>
                     </tr>
@@ -498,11 +497,28 @@ function zapme_output($vars)
                             <th><?= $log->id ?></th>
                             <th>#<?= $log->messageid ?></th>
                             <th><a href="clientssummary.php?userid=<?= $client->id ?>" target=_blank><?= $client->firstname . ' ' . $client->lastname . ' (#' . $log->clientid . ')' ?></a></th>
-                            <th><?= $log->message ?></th>
                             <th><?= date('d/m/Y H:i:s', strtotime($log->created_at)) ?></th>
-                            <th> <a href="addonmodules.php?module=zapme&tab=logs&externalaction=consultmessage&messageid=<?= $log->messageid ?>" class="btn btn-info btn-sm"> <i class="fa fa-eye" aria-hidden="true"></i> </a> </th>
+                            <th> <a href="addonmodules.php?module=zapme&tab=logs&externalaction=consultmessage&messageid=<?= $log->messageid ?>" class="btn btn-primary btn-sm"> <i class="fa fa-search" aria-hidden="true"></i> </a> <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#seelogmessage-<?= $log->id ?>"><i class="fa fa-eye" aria-hidden="true"></i></button> </th>
                         </tr>
-                    <?php endforeach ?>
+                        <div class="modal fade" id="seelogmessage-<?= $log->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">#<?= $log->id ?> - Mensagem: #<?= $log->messageid ?></h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <?= nl2br($log->message) ?>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
             <div class="modal" id="clearlogs" tabindex="-1" role="dialog">
