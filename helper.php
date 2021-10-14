@@ -196,7 +196,7 @@ if (!function_exists('templatesConfigurations')) {
                     0 => [
                         'id'          => 'controlByClient',
                         'label'       => 'Controle de Envio por ID de Cliente',
-                        'description' => 'Aborta o envio se o ID do cliente for um dos determinados <b>(use virgula para mais de um)</b>',
+                        'description' => 'Aborta o envio se o id do cliente for um dos determinados <b>(use virgula para mais de um)</b>',
                         'field'       => [
                             'type' => 'text',
                         ]
@@ -231,7 +231,7 @@ if (!function_exists('templatesConfigurations')) {
                     'invoiceid'        => 'Id da fatura',
                     'duedate'          => 'Vencimento da fatura (d/m/Y)',
                     'value'            => 'Valor total',
-                    'paghiper_barcode' => 'Código de Barras <b>[PAGHIPER]</b>',
+                    'paghiper_barcode' => 'Código de Barras do Boleto Bancário da PagHiper',
                 ]
             ],
             'invoicepaymentreminder' => [
@@ -242,7 +242,7 @@ if (!function_exists('templatesConfigurations')) {
                     0 => [
                         'id'          => 'controlByClient',
                         'label'       => 'Controle de Envio por ID de Cliente',
-                        'description' => 'Aborta o envio se o ID do cliente for um dos determinados <b>(use virgula para mais de um)</b>',
+                        'description' => 'Aborta o envio se o id do cliente for um dos determinados <b>(use virgula para mais de um)</b>',
                         'field'       => [
                             'type' => 'text',
                         ]
@@ -277,7 +277,7 @@ if (!function_exists('templatesConfigurations')) {
                     'invoiceid'        => 'Id da fatura',
                     'duedate'          => 'Vencimento da fatura (d/m/Y)',
                     'value'            => 'Valor total',
-                    'paghiper_barcode' => 'Código de Barras <b>[PAGHIPER]</b>',
+                    'paghiper_barcode' => 'Código de Barras do Boleto Bancário da PagHiper',
                 ]
             ],
             'invoicepaid' => [
@@ -287,7 +287,7 @@ if (!function_exists('templatesConfigurations')) {
                     0 => [
                         'id'          => 'controlByClient',
                         'label'       => 'Controle de Envio por ID de Cliente',
-                        'description' => 'Aborta o envio se o ID do cliente for um dos determinados <b>(use virgula para mais de um)</b>',
+                        'description' => 'Aborta o envio se o id do cliente for um dos determinados <b>(use virgula para mais de um)</b>',
                         'field'       => [
                             'type' => 'text',
                         ]
@@ -330,7 +330,7 @@ if (!function_exists('templatesConfigurations')) {
                     0 => [
                         'id'          => 'controlByClient',
                         'label'       => 'Controle de Envio por ID de Cliente',
-                        'description' => 'Aborta o envio se o ID do cliente for um dos determinados <b>(use virgula para mais de um)</b>',
+                        'description' => 'Aborta o envio se o id do cliente for um dos determinados <b>(use virgula para mais de um)</b>',
                         'field'       => [
                             'type' => 'text',
                         ]
@@ -366,7 +366,7 @@ if (!function_exists('templatesConfigurations')) {
                     0 => [
                         'id'          => 'controlByClient',
                         'label'       => 'Controle de Envio por ID de Cliente',
-                        'description' => 'Aborta o envio se o ID do cliente for um dos determinados <b>(use virgula para mais de um)</b>',
+                        'description' => 'Aborta o envio se o id do cliente for um dos determinados <b>(use virgula para mais de um)</b>',
                         'field'       => [
                             'type' => 'text',
                         ]
@@ -392,7 +392,7 @@ if (!function_exists('templatesConfigurations')) {
                     'invoiceid'        => 'Id da fatura',
                     'duedate'          => 'Vencimento da fatura (d/m/Y)',
                     'value'            => 'Valor total',
-                    'paghiper_barcode' => 'Código de Barras <b>[PAGHIPER]</b>',
+                    'paghiper_barcode' => 'Código de Barras do Boleto Bancário da PagHiper',
                 ]
             ],
             'invoicesecondoverduealert' => [
@@ -403,7 +403,7 @@ if (!function_exists('templatesConfigurations')) {
                     0 => [
                         'id'          => 'controlByClient',
                         'label'       => 'Controle de Envio por ID de Cliente',
-                        'description' => 'Aborta o envio se o ID do cliente for um dos determinados <b>(use virgula para mais de um)</b>',
+                        'description' => 'Aborta o envio se o id do cliente for um dos determinados <b>(use virgula para mais de um)</b>',
                         'field'       => [
                             'type' => 'text',
                         ]
@@ -429,7 +429,7 @@ if (!function_exists('templatesConfigurations')) {
                     'invoiceid'        => 'Id da fatura',
                     'duedate'          => 'Vencimento da fatura (d/m/Y)',
                     'value'            => 'Valor total',
-                    'paghiper_barcode' => 'Código de Barras <b>[PAGHIPER]</b>',
+                    'paghiper_barcode' => 'Código de Barras do Boleto Bancário da PagHiper',
                 ]
             ],
             'invoicethirdoverduealert' => [
@@ -440,7 +440,7 @@ if (!function_exists('templatesConfigurations')) {
                     0 => [
                         'id'          => 'controlByClient',
                         'label'       => 'Controle de Envio por ID de Cliente',
-                        'description' => 'Aborta o envio se o ID do cliente for um dos determinados <b>(use virgula para mais de um)</b>',
+                        'description' => 'Aborta o envio se o id do cliente for um dos determinados <b>(use virgula para mais de um)</b>',
                         'field'       => [
                             'type' => 'text',
                         ]
@@ -466,7 +466,7 @@ if (!function_exists('templatesConfigurations')) {
                     'invoiceid'        => 'Id da fatura',
                     'duedate'          => 'Vencimento da fatura (d/m/Y)',
                     'value'            => 'Valor total',
-                    'paghiper_barcode' => 'Código de Barras <b>[PAGHIPER]</b>',
+                    'paghiper_barcode' => 'Código de Barras do Boleto Bancário da PagHiper',
                 ]
             ],
             'ticketopen' => [
@@ -476,7 +476,7 @@ if (!function_exists('templatesConfigurations')) {
                     0 => [
                         'id'          => 'controlByClient',
                         'label'       => 'Controle de Envio por ID de Cliente',
-                        'description' => 'Aborta o envio se o ID do cliente for um dos determinados <b>(use virgula para mais de um)</b>',
+                        'description' => 'Aborta o envio se o id do cliente for um dos determinados <b>(use virgula para mais de um)</b>',
                         'field'       => [
                             'type' => 'text',
                         ]
@@ -492,7 +492,7 @@ if (!function_exists('templatesConfigurations')) {
                     2 => [
                         'id'          => 'controlByDeppartment',
                         'label'       => 'Controle de Envio por Departamento',
-                        'description' => 'Aborta o envio se o departamento do ticket for um dos determinados <b>(use virgula para mais de um)</b>',
+                        'description' => 'Aborta o envio se o id do departamento do ticket for um dos determinados <b>(use virgula para mais de um)</b>',
                         'field'       => [
                             'type' => 'text',
                         ]
@@ -514,7 +514,7 @@ if (!function_exists('templatesConfigurations')) {
                     0 => [
                         'id'          => 'controlByClient',
                         'label'       => 'Controle de Envio por ID de Cliente',
-                        'description' => 'Aborta o envio se o ID do cliente for um dos determinados <b>(use virgula para mais de um)</b>',
+                        'description' => 'Aborta o envio se o id do cliente for um dos determinados <b>(use virgula para mais de um)</b>',
                         'field'       => [
                             'type' => 'text',
                         ]
@@ -530,7 +530,7 @@ if (!function_exists('templatesConfigurations')) {
                     2 => [
                         'id'          => 'controlByDeppartment',
                         'label'       => 'Controle de Envio por Departamento',
-                        'description' => 'Aborta o envio se o departamento do ticket for um dos determinados <b>(use virgula para mais de um)</b>',
+                        'description' => 'Aborta o envio se o id do departamento do ticket for um dos determinados <b>(use virgula para mais de um)</b>',
                         'field'       => [
                             'type' => 'text',
                         ]
@@ -560,7 +560,7 @@ if (!function_exists('templatesConfigurations')) {
                     0 => [
                         'id'          => 'controlByClient',
                         'label'       => 'Controle de Envio por ID de Cliente',
-                        'description' => 'Aborta o envio se o ID do cliente for um dos determinados <b>(use virgula para mais de um)</b>',
+                        'description' => 'Aborta o envio se o id do cliente for um dos determinados <b>(use virgula para mais de um)</b>',
                         'field'       => [
                             'type' => 'text',
                         ]
@@ -616,7 +616,7 @@ if (!function_exists('templatesConfigurations')) {
                     0 => [
                         'id'          => 'controlByClient',
                         'label'       => 'Controle de Envio por ID de Cliente',
-                        'description' => 'Aborta o envio se o ID do cliente for um dos determinados <b>(use virgula para mais de um)</b>',
+                        'description' => 'Aborta o envio se o id do cliente for um dos determinados <b>(use virgula para mais de um)</b>',
                         'field'       => [
                             'type' => 'text',
                         ]
@@ -672,7 +672,7 @@ if (!function_exists('templatesConfigurations')) {
                     0 => [
                         'id'          => 'controlByClient',
                         'label'       => 'Controle de Envio por ID de Cliente',
-                        'description' => 'Aborta o envio se o ID do cliente for um dos determinados <b>(use virgula para mais de um)</b>',
+                        'description' => 'Aborta o envio se o id do cliente for um dos determinados <b>(use virgula para mais de um)</b>',
                         'field'       => [
                             'type' => 'text',
                         ]
@@ -728,7 +728,7 @@ if (!function_exists('templatesConfigurations')) {
                     0 => [
                         'id'          => 'controlByClient',
                         'label'       => 'Controle de Envio por ID de Cliente',
-                        'description' => 'Aborta o envio se o ID do cliente for um dos determinados <b>(use virgula para mais de um)</b>',
+                        'description' => 'Aborta o envio se o id do cliente for um dos determinados <b>(use virgula para mais de um)</b>',
                         'field'       => [
                             'type' => 'text',
                         ]
@@ -825,7 +825,7 @@ if (!function_exists('templatesConfigurations')) {
                     0 => [
                         'id'          => 'controlByClient',
                         'label'       => 'Controle de Envio por ID de Cliente',
-                        'description' => 'Aborta o envio se o ID do cliente for um dos determinados <b>(use virgula para mais de um)</b>',
+                        'description' => 'Aborta o envio se o id do cliente for um dos determinados <b>(use virgula para mais de um)</b>',
                         'field'       => [
                             'type' => 'text',
                         ]
@@ -874,7 +874,7 @@ if (!function_exists('templatesConfigurations')) {
                     0 => [
                         'id'          => 'controlByClient',
                         'label'       => 'Controle de Envio por ID de Cliente',
-                        'description' => 'Aborta o envio se o ID do cliente for um dos determinados <b>(use virgula para mais de um)</b>',
+                        'description' => 'Aborta o envio se o id do cliente for um dos determinados <b>(use virgula para mais de um)</b>',
                         'field'       => [
                             'type' => 'text',
                         ]
@@ -923,7 +923,7 @@ if (!function_exists('templatesConfigurations')) {
                     0 => [
                         'id'          => 'controlByClient',
                         'label'       => 'Controle de Envio por ID de Cliente',
-                        'description' => 'Aborta o envio se o ID do cliente for um dos determinados <b>(use virgula para mais de um)</b>',
+                        'description' => 'Aborta o envio se o id do cliente for um dos determinados <b>(use virgula para mais de um)</b>',
                         'field'       => [
                             'type' => 'text',
                         ]
