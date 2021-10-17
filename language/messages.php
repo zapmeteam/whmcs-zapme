@@ -9,6 +9,7 @@
 
 /**
  * as chaves do array deve ser o nome dos templates:
+ * 
  * invoicecreated
  * invoicepaymentreminder
  * invoicepaid
