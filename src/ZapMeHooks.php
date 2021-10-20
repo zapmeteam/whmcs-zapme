@@ -673,6 +673,10 @@ class ZapMeHooks
 
         $client = Client::find($log->userid);
 
+        if (!isset($client->id)) {
+            return;
+        }
+
         if (clientConsentiment($this->hook, $client, $this->module->clientconsentfieldid) === false) {
             return;
         }
