@@ -18,7 +18,7 @@ function zapme_config(): array
     return [
         'name'        => 'ZapMe',
         'description' => 'Módulo da ZapMe para o sistema WHMCS.',
-        'version'     => '2.0.1',
+        'version'     => '2.0.2',
         'language'    => 'portuguese-br',
         'author'      => 'ZapMe'
     ];
@@ -203,7 +203,7 @@ function zapme_deactivate(): array
 function zapme_output($vars)
 {
     $request = Request::createFromGlobals();
-    $zapme   = new ZapMeModule;
+    $zapme = new ZapMeModule;
 
     $tab = $request->get('action') ?? $request->get('tab');
     $tab = $tab === 'configuration' || $tab === 'manualmessage' ? null : $tab;
@@ -235,6 +235,7 @@ function zapme_output($vars)
     if ($tab === null) {
         $customfields = Capsule::table('tblcustomfields')->where('type', 'client')->get();
         $version = file_get_contents('https://docs.zapme.com.br/whmcsmoduleversion.txt');
+        $version = trim($version);
     }
 ?>
     <?php if (!isset($config->id)) : ?>
