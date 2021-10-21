@@ -91,6 +91,11 @@ if (!function_exists('clientConsentiment')) {
      */
     function clientConsentiment(string $hook, $client, int $clientConsentFieldId): bool
     {
+        if (!isset($client->id)) {
+            logActivity('[ZapMe][' . $hook . '] Processo Abortado: A captura de dados do cliente não obteve resultados suficientes.');
+            return false;
+        }
+
         if ($clientConsentFieldId == 0) {
             return true;
         }

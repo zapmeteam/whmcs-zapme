@@ -455,7 +455,7 @@ class ZapMeHooks
         $message = $template->defaultVariables($client)->serviceVariables($service, $product)->getTemplateMessage();
         $phone   = clientPhoneNumber($client, $this->module->clientphonefieldid);
 
-        $this->endOfDispatch($message, $phone, $client['id']);
+        $this->endOfDispatch($message, $phone, $client->id);
     }
 
     /**
@@ -496,7 +496,7 @@ class ZapMeHooks
         $message = $template->defaultVariables($client)->serviceVariables($service, $product)->getTemplateMessage();
         $phone   = clientPhoneNumber($client, $this->module->clientphonefieldid);
 
-        $this->endOfDispatch($message, $phone, $client['id']);
+        $this->endOfDispatch($message, $phone, $client->id);
     }
 
     /**
@@ -537,7 +537,7 @@ class ZapMeHooks
         $message = $template->defaultVariables($client)->serviceVariables($service, $product)->getTemplateMessage();
         $phone   = clientPhoneNumber($client, $this->module->clientphonefieldid);
 
-        $this->endOfDispatch($message, $phone, $client['id']);
+        $this->endOfDispatch($message, $phone, $client->id);
     }
 
     /**
@@ -578,7 +578,7 @@ class ZapMeHooks
         $message = $template->defaultVariables($client)->serviceVariables($service, $product)->getTemplateMessage();
         $phone   = clientPhoneNumber($client, $this->module->clientphonefieldid);
 
-        $this->endOfDispatch($message, $phone, $client['id']);
+        $this->endOfDispatch($message, $phone, $client->id);
     }
 
     /**
